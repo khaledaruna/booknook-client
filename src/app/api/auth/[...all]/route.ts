@@ -27,3 +27,8 @@ export const auth = betterAuth({
 });
 
 export const { GET, POST } = toNextJsHandler(auth);
+
+
+
+
+
