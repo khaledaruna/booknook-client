@@ -80,12 +80,13 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b bg-white/95 backdrop-blur">
       <div className="container mx-auto flex h-20 items-center justify-between px-4">
-        <Link href="/" className="flex items-center gap-2">
-          <span className="rounded-lg bg-primary p-2 text-white">
-            <BookOpen size={23} />
+<Link href="/" className="group flex items-center gap-2.5">
+          <span className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-white shadow-sm ring-1 ring-primary/20 transition-transform duration-300 group-hover:scale-105">
+            <BookOpen size={21} strokeWidth={2.2} />
+            <span className="absolute -top-1 -right-1 h-2.5 w-2.5 rounded-full bg-[#c87955] ring-2 ring-[#c87955]" />
           </span>
-          <span className="font-serif text-2xl font-bold text-primary">
-            BookNook
+          <span className="font-serif text-2xl font-bold tracking-tight text-[#193729]">
+            Book<span className="text-[#c87955]">Nook</span>
           </span>
         </Link>
 
@@ -96,16 +97,21 @@ export default function Navbar() {
         <div className="hidden items-center gap-3 md:flex">
           {isPending ? null : user ? (
             <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="gap-2 rounded-full">
+                <DropdownMenuTrigger
+        className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium hover:bg-muted"
+      >
+            
                   <UserRound size={17} />
                   {user.name || "My Account"}
-                </Button>
+                
               </DropdownMenuTrigger>
 
               <DropdownMenuContent align="end">
-                <DropdownMenuItem asChild>
-                  <Link href="/profile">My Profile</Link>
+                <DropdownMenuItem 
+                  render={<Link href="/profile" />}
+                  >
+
+                  My Profile
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={handleLogout}>
                   <LogOut className="mr-2" size={16} />
@@ -115,10 +121,10 @@ export default function Navbar() {
             </DropdownMenu>
           ) : (
             <>
-              <Button variant="ghost" asChild>
+              <Button variant="ghost">
                 <Link href="/login">Login</Link>
               </Button>
-              <Button asChild>
+              <Button>
                 <Link href="/register">Register</Link>
               </Button>
             </>
@@ -127,11 +133,12 @@ export default function Navbar() {
 
         <div className="md:hidden">
           <Sheet open={open} onOpenChange={setOpen}>
-            <SheetTrigger asChild>
-              <Button variant="outline" size="icon">
-                <Menu />
-              </Button>
-            </SheetTrigger>
+          <SheetTrigger
+             className="inline-flex h-9 w-9 items-center justify-center rounded-md border bg-background hover:bg-accent"
+  aria-label="Open navigation menu"
+>
+              <Menu size={20} />
+              </SheetTrigger>
 
             <SheetContent side="right" className="w-72">
               <div className="mt-10 flex flex-col gap-6">

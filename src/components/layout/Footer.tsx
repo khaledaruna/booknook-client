@@ -1,51 +1,51 @@
-
 import Link from "next/link";
-import { BookOpen, Mail, MapPin } from "lucide-react";
+import { BookOpen } from "lucide-react";
 
 export default function Footer() {
-  const year = new Date().getFullYear();
-
   return (
-    <footer className="mt-20 bg-[#18392e] text-white">
-      <div className="container mx-auto grid gap-10 px-4 py-14 md:grid-cols-3">
-        <div>
-          <Link href="/" className="flex items-center gap-2">
-            <BookOpen size={26} />
-            <span className="font-serif text-2xl font-bold">
-              BookNook
-            </span>
-          </Link>
-
-          <p className="mt-4 max-w-sm text-sm leading-7 text-white/70">
-            A welcoming place to discover books, share knowledge, and make
-            reading part of everyday life.
-          </p>
-        </div>
-
-        <div>
-          <h3 className="mb-4 font-semibold">Quick Links</h3>
-          <div className="flex flex-col gap-3 text-sm text-white/70">
-            <Link href="/books">Explore Books</Link>
-            <Link href="/add-book">Add a Book</Link>
-            <Link href="/my-borrows">My Borrows</Link>
-          </div>
-        </div>
-
-        <div>
-          <h3 className="mb-4 font-semibold">Contact</h3>
-          <div className="flex flex-col gap-3 text-sm text-white/70">
-            <p className="flex items-center gap-2">
-              <Mail size={16} /> hello@booknook.com
-            </p>
-            <p className="flex items-center gap-2">
-              <MapPin size={16} /> Online Library
+    <footer className="footer bg-[#1d3328] text-white py-16">
+      <div className="container mx-auto px-4 pt-6 pb-4">
+        <div className="footer-grid grid grid-cols-1 md:grid-cols-3 gap-10">
+          
+          <div>
+            <Link href="/" className="flex items-center gap-2.5">
+              <span className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-white shadow-sm ring-1 ring-primary/20 transition-transform duration-300 group-hover:scale-105">
+                <BookOpen size={21} strokeWidth={2.2} />
+                <span className="absolute -top-1 -right-1 h-2.5 w-2.5 rounded-full bg-[#c87955] ring-2 ring-[#c87955]" />
+              </span>
+              <span className="font-serif text-2xl font-bold tracking-tight text-white">
+                Book<span className="text-[#c87955]">Nook</span>
+              </span>
+            </Link>
+            <p className="footer-description text-[#c1cec3] text-xs leading-relaxed mt-4 max-w-sm">
+              Your digital sanctuary for discovering, lending, and managing community book collections seamlessly. Read more, share knowledge, and connect with fellow book lovers.
             </p>
           </div>
-        </div>
-      </div>
 
-      <div className="border-t border-white/15 py-5 text-center text-xs text-white/60">
-        © {year} BookNook. All rights reserved.
+          <div>
+            <h4 className="font-serif text-lg font-medium mb-4 text-white">Quick Links</h4>
+            <div className="footer-links flex flex-col gap-2.5 text-xs text-[#c1cec3]">
+              <Link href="/" className="hover:text-white transition-colors">Home</Link>
+              <Link href="/books" className="hover:text-white transition-colors">Explore All Books</Link>
+              <Link href="/login" className="hover:text-white transition-colors">Sign In / Register</Link>
+            </div>
+          </div>
+
+          <div>
+            <h4 className="font-serif text-lg font-medium mb-4 text-white">Community</h4>
+            <div className="footer-links flex flex-col gap-2.5 text-xs text-[#c1cec3]">
+              <span className="hover:text-white transition-colors cursor-pointer">Borrowing Guidelines</span>
+              <span className="hover:text-white transition-colors cursor-pointer">Library Ethics</span>
+              <span className="hover:text-white transition-colors cursor-pointer">Support & Feedback</span>
+            </div>
+          </div>
+
+        </div>
+
+        <div className="footer-bottom flex flex-col sm:flex-row items-center justify-between gap-4 mt-12 pt-6 border-t border-white/10 text-xs text-[#b6c2b9]">
+          <p>© {new Date().getFullYear()} BookNook. All rights reserved.</p>
+          <p>Built with Next.js & Tailwind CSS</p>
+        </div>
       </div>
     </footer>
   );

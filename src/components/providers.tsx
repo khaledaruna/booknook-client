@@ -10,7 +10,7 @@ export default function Providers({
   return (
     <>
       {children}
-      <Toaster position="top-right" richColors closeButton />
+      <Toaster richColors position="top-right" />
     </>
   );
 }
