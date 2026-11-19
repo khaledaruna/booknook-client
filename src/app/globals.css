@@ -540,6 +540,323 @@ input {
   background: #bd754f;
 }
 
+
+
+/* =========================================
+   BOOKNOOK NEW ARRIVALS
+========================================= */
+
+.new-arrivals-section {
+  padding: 75px 24px 85px;
+  background: #fff;
+}
+
+.new-arrivals-container {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+.new-arrivals-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 25px;
+  margin-bottom: 38px;
+}
+
+.new-arrivals-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 15px;
+  color: #a76142;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+}
+
+.new-arrivals-heading h2 {
+  margin: 0;
+  color: #20392c;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(35px, 4vw, 48px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.new-arrivals-heading h2 span {
+  color: #bd7656;
+  font-style: italic;
+}
+
+.new-arrivals-heading > div > p {
+  max-width: 520px;
+  margin: 13px 0 0;
+  color: #777d72;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.new-arrivals-view-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  flex-shrink: 0;
+  padding-bottom: 7px;
+  color: #244c3a;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.new-arrivals-view-all:hover {
+  color: #bd7656;
+}
+
+/* BOOK GRID */
+
+.new-arrivals-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+}
+
+.new-arrivals-card {
+  overflow: hidden;
+  border: 1px solid #eeeae0;
+  border-radius: 13px;
+  background: #fff;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.new-arrivals-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 35px rgba(35, 57, 44, 0.1);
+}
+
+.new-arrivals-image-link {
+  display: block;
+  text-decoration: none;
+}
+
+.new-arrivals-image {
+  position: relative;
+  height: 290px;
+  overflow: hidden;
+  background: #f0ede4;
+}
+
+.new-arrivals-cover {
+  object-fit: cover;
+  transition: transform 0.45s ease;
+}
+
+.new-arrivals-card:hover .new-arrivals-cover {
+  transform: scale(1.05);
+}
+
+.new-arrivals-image-placeholder {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  color: #a76142;
+}
+
+.new-arrivals-category {
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+  border-radius: 4px;
+  padding: 7px 11px;
+  background: #fff;
+  color: #244c3a;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.new-arrivals-card-content {
+  padding: 21px;
+}
+
+.new-arrivals-author {
+  margin: 0 0 9px;
+  color: #a76142;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+}
+
+.new-arrivals-card-content h3 {
+  min-height: 48px;
+  margin: 0;
+  color: #20392c;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 20px;
+  line-height: 1.4;
+}
+
+.new-arrivals-card-content h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.new-arrivals-card-content h3 a:hover {
+  color: #bd7656;
+}
+
+.new-arrivals-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 18px;
+  padding-top: 15px;
+  border-top: 1px solid #eeeae0;
+}
+
+.new-arrivals-available,
+.new-arrivals-unavailable {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.new-arrivals-available {
+  color: #37724e;
+}
+
+.new-arrivals-unavailable {
+  color: #b45d4b;
+}
+
+.new-arrivals-arrow {
+  display: flex;
+  width: 35px;
+  height: 35px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #edf1eb;
+  color: #244c3a;
+  transition: all 0.25s ease;
+}
+
+.new-arrivals-arrow:hover {
+  background: #244c3a;
+  color: #fff;
+}
+
+/* LOADING, EMPTY AND ERROR */
+
+.new-arrivals-message {
+  display: flex;
+  min-height: 230px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+  border: 1px dashed #d9d6c9;
+  border-radius: 13px;
+  color: #777d72;
+  text-align: center;
+}
+
+.new-arrivals-message h3,
+.new-arrivals-message p {
+  margin: 0;
+}
+
+.new-arrivals-message h3 {
+  color: #244c3a;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 21px;
+}
+
+.new-arrivals-retry {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 0;
+  border-radius: 6px;
+  padding: 10px 16px;
+  background: #244c3a;
+  color: white;
+  cursor: pointer;
+}
+
+/* BOTTOM BUTTON */
+
+.new-arrivals-bottom {
+  display: flex;
+  justify-content: center;
+  margin-top: 42px;
+}
+
+.new-arrivals-bottom-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid #244c3a;
+  border-radius: 6px;
+  padding: 14px 23px;
+  color: #244c3a;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.new-arrivals-bottom-button:hover {
+  background: #244c3a;
+  color: #fff;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+  .new-arrivals-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .new-arrivals-image {
+    height: 270px;
+  }
+}
+
+@media (max-width: 600px) {
+  .new-arrivals-section {
+    padding: 55px 16px 65px;
+  }
+
+  .new-arrivals-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    margin-bottom: 27px;
+  }
+
+  .new-arrivals-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .new-arrivals-image {
+    height: 320px;
+  }
+
+  .new-arrivals-card-content {
+    padding: 18px;
+  }
+
+  .new-arrivals-view-all {
+    padding: 0;
+  }
+}
+
 /* =========================================
    TRUST STRIP
 ========================================= */
