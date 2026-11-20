@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useEffect, useState } from "react";
@@ -25,7 +24,7 @@ export function NewArrivals() {
       setError("");
 
       const response = await apiRequest<BooksApiResponse>(
-        "/api/books",
+        "/books",
         { signal }
       );
 
@@ -64,7 +63,6 @@ export function NewArrivals() {
   return (
     <section className="new-arrivals-section">
       <div className="new-arrivals-container">
-
         {/* Section heading */}
         <div className="new-arrivals-heading">
           <div>

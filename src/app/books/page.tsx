@@ -20,7 +20,7 @@ async function getBooks(): Promise<Book[]> {
       process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"
     ).replace(/\/$/, "");
 
-    const res = await fetch(`${apiUrl}/api/books`, {
+    const res = await fetch(`${apiUrl}/books`, {
       cache: "no-store",
     });
 
