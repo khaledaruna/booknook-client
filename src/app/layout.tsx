@@ -1,4 +1,3 @@
-
 import type { Metadata } from "next";
 
 import Navbar from "@/components/layout/Navbar";
@@ -35,16 +34,18 @@ export const metadata: Metadata = {
   creator: "BookNook",
   publisher: "BookNook",
 };
-  
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className="flex min-h-screen flex-col"
-    suppressHydrationWarning>
+    <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
+      <body
+        className="flex min-h-screen flex-col"
+        suppressHydrationWarning
+      >
         <Providers>
           <Navbar />
 
