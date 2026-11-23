@@ -1,8 +1,10 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { authClient } from "@/lib/auth-client"; // adjust path if your Better Auth client is elsewhere
+import { authClient } from "@/lib/auth-client";
+
+const MAX_FILE_SIZE_BYTES = 5 * 1024 * 1024; // 5 MB
 
 export default function AddBookPage() {
   const router = useRouter();
@@ -14,34 +16,56 @@ export default function AddBookPage() {
   const [description, setDescription] = useState("");
   const [totalCopies, setTotalCopies] = useState(1);
   const [imageFile, setImageFile] = useState<File | null>(null);
-  const [previewUrl, setPreviewUrl] = useState<string>("");
+  const [previewUrl, setPreviewUrl] = useState("");
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  useEffect(() => {
+    return () => {
+      if (previewUrl) {
+        URL.revokeObjectURL(previewUrl);
+      }
+    };
+  }, [previewUrl]);
+
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0] || null;
-    setImageFile(file);
-    if (file) {
-      setPreviewUrl(URL.createObjectURL(file));
-    } else {
-      setPreviewUrl("");
+    if (previewUrl) {
+      URL.revokeObjectURL(previewUrl);
     }
+    setImageFile(file);
+    setPreviewUrl(file ? URL.createObjectURL(file) : "");
   }
 
-  async function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setError("");
+
+    if (!session?.user) {
+      setError("Please log in before adding a book.");
+      return;
+    }
 
     if (!imageFile) {
       setError("Please select a book cover image.");
       return;
     }
 
+    if (!imageFile.type.startsWith("image/")) {
+      setError("Please select a valid image file.");
+      return;
+    }
+
+    if (imageFile.size === 0 || imageFile.size > MAX_FILE_SIZE_BYTES) {
+      setError("Image size must be between 1 byte and 5 MB.");
+      return;
+    }
+
     try {
       setLoading(true);
 
-      // 1. Upload image to ImgBB via Next.js /api/upload
+      // 1. Upload image to ImgBB via /api/upload
       const uploadFormData = new FormData();
       uploadFormData.append("image", imageFile);
 
@@ -52,13 +76,17 @@ export default function AddBookPage() {
 
       const uploadData = await uploadRes.json();
       if (!uploadRes.ok || !uploadData.success || !uploadData.url) {
-        throw new Error(uploadData.message || "Failed to upload cover image.");
+        setError(uploadData.message || "Failed to upload cover image.");
+        return;
       }
 
-      // 2. Create book in Express/MongoDB backend
+      // 2. Create book in backend
       const apiUrl = (
-        process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"
+        process.env.NEXT_PUBLIC_API_URL ||
+        "https://booknook-server-v982.onrender.com"
       ).replace(/\/+$/, "");
+
+      const copiesCount = Math.max(1, Number(totalCopies) || 1);
 
       const bookPayload = {
         title: title.trim(),
@@ -66,11 +94,11 @@ export default function AddBookPage() {
         category,
         image: uploadData.url,
         description: description.trim(),
-        totalCopies: Number(totalCopies),
-        availableCopies: Number(totalCopies),
+        totalCopies: copiesCount,
+        availableCopies: copiesCount,
         addedBy: {
-          name: session?.user?.name || "Anonymous",
-          email: session?.user?.email || "",
+          name: session.user.name || "Library Member",
+          email: session.user.email || "",
         },
       };
 
@@ -84,7 +112,8 @@ export default function AddBookPage() {
 
       const createData = await createRes.json();
       if (!createRes.ok || !createData.success) {
-        throw new Error(createData.message || "Failed to add book.");
+        setError(createData.message || "Failed to add book.");
+        return;
       }
 
       router.push("/books");
@@ -186,7 +215,7 @@ export default function AddBookPage() {
             <img
               src={previewUrl}
               alt="Cover preview"
-              className="mt-3 h-40 w-28 rounded object-cover border border-base-300"
+              className="mt-3 h-40 w-28 rounded border border-base-300 object-cover"
             />
           )}
         </div>

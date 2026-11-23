@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -9,7 +9,6 @@ import {
   LoaderCircle,
   RefreshCw,
 } from "lucide-react";
-
 import { apiRequest, ApiError } from "@/lib/api-client";
 import type { Book, BooksApiResponse } from "@/types/book.types";
 
@@ -18,25 +17,21 @@ export function NewArrivals() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  async function loadBooks(signal?: AbortSignal) {
+  const loadBooks = useCallback(async (signal?: AbortSignal) => {
     try {
-      setLoading(true);
-      setError("");
-
-      const response = await apiRequest<BooksApiResponse>(
-        "/books",
-        { signal }
-      );
+      const response = await apiRequest<BooksApiResponse>("/books", {
+        signal,
+      });
 
       const latestBooks = [...(response.data ?? [])]
         .sort(
           (a, b) =>
-            new Date(b.createdAt).getTime() -
-            new Date(a.createdAt).getTime()
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
         )
         .slice(0, 6);
 
       setBooks(latestBooks);
+      setError("");
     } catch (err) {
       if (signal?.aborted) return;
 
@@ -50,15 +45,23 @@ export function NewArrivals() {
         setLoading(false);
       }
     }
-  }
+  }, []);
 
   useEffect(() => {
     const controller = new AbortController();
 
-    loadBooks(controller.signal);
+    void loadBooks(controller.signal);
 
-    return () => controller.abort();
-  }, []);
+    return () => {
+      controller.abort();
+    };
+  }, [loadBooks]);
+
+  function handleRetry() {
+    setLoading(true);
+    setError("");
+    void loadBooks();
+  }
 
   return (
     <section className="new-arrivals-section">
@@ -76,15 +79,12 @@ export function NewArrivals() {
             </h2>
 
             <p>
-              Discover the latest additions to our library.
-              Your next favorite story might be waiting here.
+              Discover the latest additions to our library. Your next favorite
+              story might be waiting here.
             </p>
           </div>
 
-          <Link
-            href="/books"
-            className="new-arrivals-view-all"
-          >
+          <Link href="/books" className="new-arrivals-view-all">
             View all books
             <ArrowRight size={17} />
           </Link>
@@ -102,10 +102,9 @@ export function NewArrivals() {
         {!loading && error && (
           <div className="new-arrivals-message">
             <p>{error}</p>
-
             <button
               type="button"
-              onClick={() => loadBooks()}
+              onClick={handleRetry}
               className="new-arrivals-retry"
             >
               <RefreshCw size={16} />
@@ -127,10 +126,7 @@ export function NewArrivals() {
         {!loading && !error && books.length > 0 && (
           <div className="new-arrivals-grid">
             {books.map((book) => (
-              <article
-                className="new-arrivals-card"
-                key={book._id}
-              >
+              <article className="new-arrivals-card" key={book._id}>
                 <Link
                   href={`/books/${book._id}`}
                   className="new-arrivals-image-link"
@@ -150,7 +146,6 @@ export function NewArrivals() {
                         <BookOpen size={42} />
                       </div>
                     )}
-
                     <span className="new-arrivals-category">
                       {book.category}
                     </span>
@@ -158,14 +153,10 @@ export function NewArrivals() {
                 </Link>
 
                 <div className="new-arrivals-card-content">
-                  <p className="new-arrivals-author">
-                    BY {book.author}
-                  </p>
+                  <p className="new-arrivals-author">BY {book.author}</p>
 
                   <h3>
-                    <Link href={`/books/${book._id}`}>
-                      {book.title}
-                    </Link>
+                    <Link href={`/books/${book._id}`}>{book.title}</Link>
                   </h3>
 
                   <div className="new-arrivals-card-footer">
