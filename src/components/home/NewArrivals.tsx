@@ -174,10 +174,10 @@ export function NewArrivals() {
 
                     <Link
                       href={`/books/${book._id}`}
-                      aria-label={`View details for ${book.title}`}
-                      className="new-arrivals-arrow"
-                    >
-                      <ArrowRight size={18} />
+                  
+                      className="new-arrivals-details-button"
+                    >View Details
+                      <ArrowRight size={16} />
                     </Link>
                   </div>
                 </div>

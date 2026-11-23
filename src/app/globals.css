@@ -598,21 +598,38 @@ input {
   line-height: 1.8;
 }
 
+
 .new-arrivals-view-all {
   display: inline-flex;
   align-items: center;
-  gap: 9px;
+  justify-content: center;
+  gap: 10px;
   flex-shrink: 0;
-  padding-bottom: 7px;
-  color: #244c3a;
+  padding: 13px 21px;
+  border-radius: 6px;
+  background: #bd7656;
+  color: #ffffff;
   font-size: 14px;
   font-weight: 700;
   text-decoration: none;
+  transition: all 0.3s ease;
 }
 
 .new-arrivals-view-all:hover {
-  color: #bd7656;
+  background: #a76142;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(189, 118, 86, 0.22);
 }
+
+.new-arrivals-view-all svg {
+  transition: transform 0.3s ease;
+}
+
+.new-arrivals-view-all:hover svg {
+  transform: translateX(4px);
+}
+
 
 /* BOOK GRID */
 
@@ -733,22 +750,34 @@ input {
   color: #b45d4b;
 }
 
-.new-arrivals-arrow {
-  display: flex;
-  width: 35px;
-  height: 35px;
+
+.new-arrivals-details-button {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
-  background: #edf1eb;
-  color: #244c3a;
+  gap: 9px;
+  border: 1px solid #244c3a;
+  border-radius: 6px;
+  padding: 10px 15px;
+  background: #244c3a;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
   transition: all 0.25s ease;
 }
 
-.new-arrivals-arrow:hover {
-  background: #244c3a;
-  color: #fff;
+.new-arrivals-details-button:hover {
+  border-color: #bd7656;
+  background: #bd7656;
+  color: #ffffff;
 }
+
+.new-arrivals-details-button:focus-visible {
+  outline: 3px solid #bd7656;
+  outline-offset: 3px;
+}
+
 
 /* LOADING, EMPTY AND ERROR */
 
@@ -803,7 +832,7 @@ input {
   border: 1px solid #244c3a;
   border-radius: 6px;
   padding: 14px 23px;
-  color: #244c3a;
+  color:#244c3a;
   font-size: 14px;
   font-weight: 700;
   text-decoration: none;
