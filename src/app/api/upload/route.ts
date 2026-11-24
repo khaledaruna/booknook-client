@@ -69,7 +69,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({
       success: true,
-      url: result.data.display_url || result.data.url,
+      url: result.data.url,
     });
   } catch (error) {
     console.error("ImgBB upload route error:", error);

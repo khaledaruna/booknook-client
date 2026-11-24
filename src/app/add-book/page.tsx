@@ -3,8 +3,11 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
+import { apiRequest } from "@/lib/api-client";
+import { toast } from "sonner";
+import type { BookCategory } from "@/types/book.types";
 
-const MAX_FILE_SIZE_BYTES = 5 * 1024 * 1024; // 5 MB
+const MAX_FILE_SIZE_BYTES = 5 * 1024 * 1024; // 5 MBs
 
 export default function AddBookPage() {
   const router = useRouter();
@@ -12,7 +15,7 @@ export default function AddBookPage() {
 
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
-  const [category, setCategory] = useState("Fiction");
+  const [category, setCategory] = useState<BookCategory>("Fiction");
   const [description, setDescription] = useState("");
   const [totalCopies, setTotalCopies] = useState(1);
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -43,22 +46,30 @@ export default function AddBookPage() {
     setError("");
 
     if (!session?.user) {
-      setError("Please log in before adding a book.");
+      const msg = "Please log in before adding a book.";
+      setError(msg);
+      toast.error(msg);
       return;
     }
 
     if (!imageFile) {
-      setError("Please select a book cover image.");
+      const msg = "Please select a book cover image.";
+      setError(msg);
+      toast.error(msg);
       return;
     }
 
     if (!imageFile.type.startsWith("image/")) {
-      setError("Please select a valid image file.");
+      const msg = "Please select a valid image file.";
+      setError(msg);
+      toast.error(msg);
       return;
     }
 
     if (imageFile.size === 0 || imageFile.size > MAX_FILE_SIZE_BYTES) {
-      setError("Image size must be between 1 byte and 5 MB.");
+      const msg = "Image size must be between 1 byte and 5 MB.";
+      setError(msg);
+      toast.error(msg);
       return;
     }
 
@@ -76,16 +87,10 @@ export default function AddBookPage() {
 
       const uploadData = await uploadRes.json();
       if (!uploadRes.ok || !uploadData.success || !uploadData.url) {
-        setError(uploadData.message || "Failed to upload cover image.");
-        return;
+        throw new Error(uploadData.message || "Failed to upload cover image.");
       }
 
-      // 2. Create book in backend
-      const apiUrl = (
-        process.env.NEXT_PUBLIC_API_URL ||
-        "https://booknook-server-v982.onrender.com"
-      ).replace(/\/+$/, "");
-
+      // 2. Create book in backend using authenticated apiRequest
       const copiesCount = Math.max(1, Number(totalCopies) || 1);
 
       const bookPayload = {
@@ -102,24 +107,27 @@ export default function AddBookPage() {
         },
       };
 
-      const createRes = await fetch(`${apiUrl}/books`, {
+      const createData = await apiRequest<{
+        success: boolean;
+        message: string;
+      }>("/books", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        authenticated: true,
         body: JSON.stringify(bookPayload),
       });
 
-      const createData = await createRes.json();
-      if (!createRes.ok || !createData.success) {
-        setError(createData.message || "Failed to add book.");
-        return;
+      if (!createData.success) {
+        throw new Error(createData.message || "Failed to add book.");
       }
 
+      toast.success("Your book has been added successfully!");
       router.push("/books");
       router.refresh();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Something went wrong.");
+      const message =
+        err instanceof Error ? err.message : "Something went wrong.";
+      setError(message);
+      toast.error(message);
     } finally {
       setLoading(false);
     }
@@ -174,14 +182,14 @@ export default function AddBookPage() {
             </label>
             <select
               value={category}
-              onChange={(e) => setCategory(e.target.value)}
+              onChange={(e) => setCategory(e.target.value as BookCategory)}
               className="select select-bordered w-full"
             >
               <option value="Fiction">Fiction</option>
               <option value="Science">Science</option>
               <option value="History">History</option>
               <option value="Kids">Kids</option>
-              <option value="Biography">Biography</option>
+              <option value="Others">Others</option>
             </select>
           </div>
 
