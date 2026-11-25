@@ -886,6 +886,607 @@ input {
   }
 }
 
+
+/* =====================================
+   BOOK DETAILS PAGE
+===================================== */
+
+.book-details-page {
+  min-height: 75vh;
+  padding: 65px 24px 90px;
+  background: #faf9f5;
+}
+
+.book-details-container {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.details-breadcrumb {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 30px;
+  color: #244c3a;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+.details-breadcrumb:hover {
+  color: #bd7656;
+}
+
+.book-details-card {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 65px;
+  align-items: center;
+  padding: 55px;
+  border: 1px solid #eeeae0;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 15px 45px rgba(35, 57, 44, 0.06);
+}
+
+/* BOOK COVER */
+
+.book-details-cover-wrap {
+  position: relative;
+  max-width: 390px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.book-details-cover {
+  overflow: hidden;
+  height: 510px;
+  border-radius: 9px;
+  background: #f0ede4;
+  box-shadow: 12px 15px 30px rgba(32, 57, 44, 0.16);
+}
+
+.book-details-cover img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.book-details-cover:hover img {
+  transform: scale(1.035);
+}
+
+.book-cover-category {
+  position: absolute;
+  bottom: 17px;
+  left: 17px;
+  padding: 9px 15px;
+  border-radius: 4px;
+  background: #fff;
+  color: #244c3a;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+/* BOOK INFORMATION */
+
+.book-details-content {
+  min-width: 0;
+}
+
+.details-top-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 25px;
+  color: #a76142;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.details-label-line {
+  width: 30px;
+  height: 1px;
+  background: #bd7656;
+}
+
+/* Category Badge */
+.details-category {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 7px 16px;
+  border-radius: 30px;
+  background: #bd7656;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.book-details-content h1 {
+  margin: 0;
+  color: #20392c;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(34px, 4vw, 48px);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.book-details-author {
+  margin: 15px 0 0;
+  color: #777d72;
+  font-size: 15px;
+}
+
+.book-details-author strong {
+  color: #a76142;
+  font-weight: 700;
+}
+
+.details-divider {
+  height: 1px;
+  margin: 27px 0;
+  background: #eeeae0;
+}
+
+/* AVAILABILITY */
+
+.details-availability {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 30px;
+}
+
+.availability-icon {
+  display: flex;
+  width: 45px;
+  height: 45px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #edf4ed;
+  color: #37724e;
+}
+
+.availability-label {
+  display: block;
+  margin-bottom: 5px;
+  color: #99978d;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.3px;
+}
+
+.stock-available {
+  color: #37724e;
+  font-size: 14px;
+}
+
+.stock-empty {
+  color: #b45d4b;
+  font-size: 14px;
+}
+
+/* DESCRIPTION */
+
+.details-description-wrap h2 {
+  margin: 0 0 12px;
+  color: #20392c;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 22px;
+}
+
+.book-details-description {
+  margin: 0;
+  color: #777d72;
+  font-size: 14px;
+  line-height: 1.9;
+  white-space: pre-line;
+}
+
+/* CONTRIBUTOR */
+
+.details-added-by {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-top: 30px;
+  padding: 17px;
+  border: 1px solid #eeeae0;
+  border-radius: 8px;
+  background: #faf9f5;
+}
+
+.added-by-icon {
+  display: flex;
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #f0e9df;
+  color: #a76142;
+}
+
+.details-added-by span,
+.details-added-by strong,
+.details-added-by small {
+  display: block;
+}
+
+.details-added-by span {
+  margin-bottom: 4px;
+  color: #99978d;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.details-added-by strong {
+  color: #244c3a;
+  font-size: 13px;
+}
+
+.details-added-by small {
+  margin-top: 3px;
+  color: #88887f;
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+
+/* Borrow Button */
+.details-borrow-button {
+  width: 100%;
+  padding: 16px 24px;
+  border: 1px solid #244c3a;
+  border-radius: 10px;
+  background: #244c3a;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Hover */
+.details-borrow-button:hover:not(:disabled) {
+  background: #bd7656;
+  border-color: #bd7656;
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+/* Disabled */
+.details-borrow-button:disabled {
+  background: #e5e0d7;
+  border-color: #e5e0d7;
+  color: #888078;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.details-borrow-note {
+  margin: 12px 0 0;
+  color: #99978d;
+  font-size: 11px;
+  text-align: center;
+}
+
+/* =====================================
+   BORROW CONFIRMATION DIALOG
+===================================== */
+
+.book-borrow-dialog {
+  width: min(480px, calc(100% - 32px));
+  max-width: 480px;
+  margin: auto;
+  border: 1px solid #eeeae0;
+  border-radius: 14px;
+  padding: 0;
+  background: #fff;
+  color: #20392c;
+  box-shadow: 0 25px 80px rgba(20, 40, 30, 0.2);
+}
+
+.book-borrow-dialog::backdrop {
+  background: rgba(22, 39, 29, 0.65);
+  backdrop-filter: blur(3px);
+}
+
+.book-dialog-content {
+  position: relative;
+  padding: 38px;
+}
+
+.book-dialog-close {
+  position: absolute;
+  top: 16px;
+  right: 17px;
+  display: flex;
+  width: 32px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 50%;
+  background: #f5f1e9;
+  color: #244c3a;
+  cursor: pointer;
+  font-size: 23px;
+}
+
+.dialog-book-icon {
+  display: flex;
+  width: 54px;
+  height: 54px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 22px;
+  border-radius: 50%;
+  background: #edf4ed;
+  color: #244c3a;
+}
+
+.dialog-eyebrow {
+  color: #a76142;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.7px;
+}
+
+.book-dialog-content h2 {
+  margin: 12px 0 8px;
+  color: #20392c;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 28px;
+  line-height: 1.3;
+}
+
+.dialog-book-title {
+  margin: 0;
+  color: #a76142;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.dialog-description {
+  margin: 18px 0;
+  color: #777d72;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.dialog-user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 15px;
+  border: 1px solid #eeeae0;
+  border-radius: 7px;
+}
+
+.dialog-user-icon {
+  display: flex;
+  width: 39px;
+  height: 39px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #f0e9df;
+  color: #a76142;
+}
+
+.dialog-user-info strong,
+.dialog-user-info small {
+  display: block;
+}
+
+.dialog-user-info strong {
+  color: #244c3a;
+  font-size: 13px;
+}
+
+.dialog-user-info small {
+  margin-top: 4px;
+  color: #88887f;
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+
+.dialog-return-info {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 18px;
+  padding: 14px 0;
+  border-bottom: 1px solid #eeeae0;
+  color: #777d72;
+  font-size: 12px;
+}
+
+.dialog-return-info strong {
+  color: #244c3a;
+}
+
+.dialog-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.dialog-cancel-button,
+.dialog-confirm-button {
+  flex: 1;
+  min-height: 46px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 800;
+  transition: all 0.25s ease;
+}
+
+.dialog-cancel-button {
+  border: 1px solid #244c3a;
+  background: #fff;
+  color: #244c3a;
+}
+
+.dialog-cancel-button:hover {
+  background: #f5f1e9;
+}
+
+.dialog-confirm-button {
+  border: 1px solid #244c3a;
+  background: #244c3a;
+  color: #fff;
+}
+
+.dialog-confirm-button:hover:not(:disabled) {
+  border-color: #bd7656;
+  background: #bd7656;
+}
+
+.dialog-confirm-button:disabled,
+.dialog-cancel-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* =====================================
+   LOADING AND ERROR STATES
+===================================== */
+
+.book-details-state {
+  display: flex;
+  min-height: 65vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 30px;
+  color: #777d72;
+  text-align: center;
+}
+
+.book-details-state h2 {
+  margin: 0;
+  color: #244c3a;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 27px;
+}
+
+.book-details-state p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.details-spinner {
+  width: 35px;
+  height: 35px;
+  border: 3px solid #eeeae0;
+  border-top-color: #244c3a;
+  border-radius: 50%;
+  animation: details-spin 0.8s linear infinite;
+}
+
+@keyframes details-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.details-back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  border-radius: 6px;
+  padding: 12px 18px;
+  background: #244c3a;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/* =====================================
+   RESPONSIVE DESIGN
+===================================== */
+
+@media (max-width: 900px) {
+  .book-details-card {
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 35px;
+    padding: 35px;
+  }
+
+  .book-details-cover {
+    height: 430px;
+  }
+}
+
+@media (max-width: 650px) {
+  .book-details-page {
+    padding: 35px 16px 60px;
+  }
+
+  .book-details-card {
+    grid-template-columns: 1fr;
+    gap: 35px;
+    padding: 23px;
+  }
+
+  .book-details-cover-wrap {
+    max-width: 300px;
+  }
+
+  .book-details-cover {
+    height: 390px;
+  }
+
+  .book-details-content h1 {
+    font-size: 34px;
+  }
+
+  .details-top-label {
+    margin-bottom: 18px;
+  }
+
+  .book-dialog-content {
+    padding: 28px 22px;
+  }
+
+  .book-dialog-content h2 {
+    font-size: 24px;
+  }
+
+  .dialog-actions {
+    flex-direction: column-reverse;
+  }
+}
+
+@media (max-width: 380px) {
+  .book-details-cover {
+    height: 330px;
+  }
+
+  .book-details-card {
+    padding: 17px;
+  }
+}
+
+
+
 /* =========================================
    TRUST STRIP
 ========================================= */
