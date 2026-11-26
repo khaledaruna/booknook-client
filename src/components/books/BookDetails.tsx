@@ -111,7 +111,28 @@ export function BookDetails({ id }: { id: string }) {
       setBorrowing(false);
     }
   }
+  function handleBorrowClick() {
+    console.log("Borrow button clicked");
+    console.log("Current session:", session);
+    console.log("Dialog element:", dialogRef.current);
 
+    if (!session?.user) {
+      toast.error("Please log in before borrowing a book.");
+      return;
+    }
+
+    if (!dialogRef.current) {
+      console.error("Borrow dialog element was not found.");
+      return;
+    }
+
+    try {
+      dialogRef.current.showModal();
+      console.log("Borrow confirmation dialog opened");
+    } catch (error) {
+      console.error("Could not open borrow dialog:", error);
+    }
+  }
   if (status === "loading") {
     return (
       <div className="book-details-state" role="status">
@@ -220,22 +241,17 @@ export function BookDetails({ id }: { id: string }) {
                 </div>
               </div>
 
-              <button
-                className="details-borrow-button"
-                type="button"
-                disabled={unavailable}
-                onClick={() => {
-                  if (!session?.user) {
-                    toast.error("Please log in before borrowing a book.");
-                    return;
-                  }
 
-                  dialogRef.current?.showModal();
-                }}
-              >
-                <BookOpen size={19} />
-                {unavailable ? "Currently Unavailable" : "Borrow This Book"}
-              </button>
+        <button
+          className="details-borrow-button"
+          type="button"
+          disabled={unavailable}
+          onClick={handleBorrowClick}
+        >
+          <BookOpen size={19} />
+          {unavailable ? "Currently Unavailable" : "Borrow This Book"}
+        </button>
+
 
               <p className="details-borrow-note">
                 Borrowing period: 14 days
@@ -245,77 +261,31 @@ export function BookDetails({ id }: { id: string }) {
         </div>
       </main>
 
-      <dialog
+    <dialog
         className="book-borrow-dialog"
         ref={dialogRef}
-        onClick={(event) => {
-          if (event.target === dialogRef.current) {
-            dialogRef.current.close();
-          }
-        }}
-      >
+        >
         <div className="book-dialog-content">
-          <button
-            className="book-dialog-close"
+            <h2>Ready to start reading?</h2>
+
+            <p>{book.title}</p>
+
+            <button
             type="button"
             onClick={() => dialogRef.current?.close()}
-            aria-label="Close dialog"
-          >
-            ×
-          </button>
-
-          <div className="dialog-book-icon">
-            <BookOpen size={27} />
-          </div>
-
-          <span className="dialog-eyebrow">CONFIRM YOUR BORROW</span>
-
-          <h2>Ready to start reading?</h2>
-
-          <p className="dialog-book-title">{book.title}</p>
-
-          <p className="dialog-description">
-            You're about to borrow this book from BookNook. Your
-            return date will be 14 days from today.
-          </p>
-
-          <div className="dialog-user-info">
-            <div className="dialog-user-icon">
-              <UserRound size={19} />
-            </div>
-
-            <div>
-              <strong>{session?.user.name}</strong>
-              <small>{session?.user.email}</small>
-            </div>
-          </div>
-
-          <div className="dialog-return-info">
-            <span>Borrowing period</span>
-            <strong>14 days</strong>
-          </div>
-
-          <div className="dialog-actions">
-            <button
-              className="dialog-cancel-button"
-              type="button"
-              disabled={borrowing}
-              onClick={() => dialogRef.current?.close()}
             >
-              Cancel
+            Cancel
             </button>
 
             <button
-              className="dialog-confirm-button"
-              type="button"
-              disabled={borrowing}
-              onClick={confirmBorrow}
+            type="button"
+            onClick={confirmBorrow}
+            disabled={borrowing}
             >
-              {borrowing ? "Processing..." : "Confirm Borrow"}
+            {borrowing ? "Processing..." : "Confirm Borrow"}
             </button>
-          </div>
         </div>
-      </dialog>
+    </dialog>
     </>
   );
 }
